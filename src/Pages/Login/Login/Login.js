@@ -8,13 +8,16 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import login from "../../../images/login.jpg";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
   const { user, loginUser, isLoading, authError, signInWidthGoogle } = useAuth();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -25,12 +28,12 @@ const Login = () => {
   };
 
   const handleLoginSubmit = (e) => {
-    loginUser(loginData.email, loginData.password);
+    loginUser(loginData.email, loginData.password, location, navigate);
     e.preventDefault();
   };
 
   const handleGoogleSignIn = () => {
-    signInWidthGoogle();
+    signInWidthGoogle(location, navigate);
   };
 
   return (
@@ -44,7 +47,7 @@ const Login = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  label="Your Email"
+                  name="Your Email"
                   name="email"
                   type="email"
                   onBlur={handleOnBlur}
@@ -54,7 +57,7 @@ const Login = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  label="Your Password"
+                  name="Your Password"
                   name="password"
                   type="password"
                   onBlur={handleOnBlur}

@@ -8,14 +8,14 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import register from "../../../images/login.jpg";
 
 const Register = () => {
   const [registerData, setRegisterData] = useState({});
-
   const { user, registerUser, isLoading, authError } = useAuth();
+  const navigate = useNavigate();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -30,7 +30,7 @@ const Register = () => {
       alert("login password didn't match");
       return;
     }
-    registerUser(registerData.email, registerData.password, registerData.name);
+    registerUser(registerData.email, registerData.password, registerData.name, navigate);
     e.preventDefault();
   };
 
@@ -45,7 +45,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  label="Your Name"
+                  name="Your Name"
                   name="name"
                   type="text"
                   onBlur={handleOnBlur}
@@ -55,7 +55,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  label="Your Email"
+                  name="Your Email"
                   name="email"
                   type="email"
                   onBlur={handleOnBlur}
@@ -65,7 +65,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  label="Your Password"
+                  name="Your Password"
                   name="password"
                   type="password"
                   onBlur={handleOnBlur}
@@ -75,7 +75,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  label="Retype Your Password"
+                  name="Retype Your Password"
                   name="Repassword"
                   type="password"
                   onBlur={handleOnBlur}

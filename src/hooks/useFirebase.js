@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
@@ -21,11 +22,22 @@ const useFirebase = () => {
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
 
-  const registerUser = (email, password) => {
+  const registerUser = (email, password, name, navigate) => {
     setIsloading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setAuthError("");
+        const newUser = { email, displayName: name };
+        setUser(newUser);
+      // set user to the database
+      saveUser(email, name, "POST");
+      // send name to firebase after creation
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      })
+        .then(() => {})
+        .catch((error) => {});
+      navigate("/");
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -33,11 +45,13 @@ const useFirebase = () => {
       .finally(() => setIsloading(false));
   };
 
-  const loginUser = (email, password) => {
+  const loginUser = (email, password, location, navigate) => {
     setIsloading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setAuthError("");
+        const destination = location?.state?.from || "/home";
+        navigate(destination);
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -45,11 +59,15 @@ const useFirebase = () => {
       .finally(() => setIsloading(false));
   };
 
-  const signInWidthGoogle = () => {
+  const signInWidthGoogle = (location, navigate) => {
     setIsloading(true);
     signInWithPopup(auth, googleProvider)
       .then((userCredential) => {
         const user = userCredential.user;
+        saveUser(user.email, user.displayName, "PUT");
+        setAuthError("");
+        const destination = location?.state?.from || "/home";
+        navigate(destination);
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -79,6 +97,17 @@ const useFirebase = () => {
         // An error happened.
       })
       .finally(() => setIsloading(false));
+  };
+
+  const saveUser = (email, displayName, method) => {
+    const user = { email: email, displayName: displayName };
+    fetch("http://localhost:5000/users", {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then();
   };
 
   return {
