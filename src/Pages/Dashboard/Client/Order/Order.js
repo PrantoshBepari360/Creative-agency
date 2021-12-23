@@ -32,7 +32,6 @@ const Order = () => {
     formData.append("project", project);
     formData.append("price", price);
     formData.append("image", image);
-    console.log(formData);
 
     // send to the sarver
     fetch("http://localhost:5000/order", {

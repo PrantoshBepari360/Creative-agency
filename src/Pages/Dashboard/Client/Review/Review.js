@@ -1,4 +1,4 @@
-import { Alert, Container, TextField } from '@mui/material';
+import { Alert, Button, Container, TextField } from '@mui/material';
 import React, { useState } from 'react';
 
 const style = {
@@ -72,11 +72,9 @@ const Review = () => {
           placeholder="Description"
           />
           <br />
-          <TextField 
-          style={style}
-          id="outlined-basic" 
-          type="submit"
-          />
+          <Button variant="outlined" type="submit">
+          Submit
+        </Button>
       </form>
       <br />
           {reviewSuccess && (

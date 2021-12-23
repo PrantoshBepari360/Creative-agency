@@ -17,6 +17,7 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import useAuth from "../../../hooks/useAuth";
 
 const drawerWidth = 240;
 const Decoration = {
@@ -26,8 +27,9 @@ const Decoration = {
 const Dashboard = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { admin } = useAuth();
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = () => { 
     setMobileOpen(!mobileOpen);
   };
 
@@ -56,20 +58,24 @@ const Dashboard = (props) => {
         <Button color="inherit">Review</Button>
       </Link>
       <br />
-      <Link style={Decoration} to="/dashboard/servicelists">
-      <LocalLaundryServiceOutlinedIcon/>
-        <Button color="inherit">Service List</Button>
-      </Link>
-      <br />
-      <Link style={Decoration} to="/dashboard/addService">
-        <AddOutlinedIcon/>
-        <Button color="inherit">Add Service</Button>
-      </Link>
-      <br />
-      <Link style={Decoration} to="/dashboard/makeAdmin">
-        <AdminPanelSettingsOutlinedIcon/>
-        <Button color="inherit">Make Admin</Button>
-      </Link>
+      {admin && (
+        <Box>
+          <Link style={Decoration} to="/dashboard/lists">
+        <LocalLaundryServiceOutlinedIcon/>
+          <Button color="inherit">Service List</Button>
+        </Link>
+        <br />
+        <Link style={Decoration} to="/dashboard/addService">
+          <AddOutlinedIcon/>
+          <Button color="inherit">Add Service</Button>
+        </Link>
+        <br />
+        <Link style={Decoration} to="/dashboard/makeAdmin">
+          <AdminPanelSettingsOutlinedIcon/>
+          <Button color="inherit">Make Admin</Button>
+        </Link>
+        </Box>
+      )}
     </Box>
   );
 

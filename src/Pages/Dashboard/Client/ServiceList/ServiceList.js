@@ -1,29 +1,36 @@
-import * as React from 'react';
-import { Container, Grid } from '@mui/material';
-import { Box } from '@mui/system';
-import service1 from '../../../../images/icons/service1.png'
-import service2 from '../../../../images/icons/service2.png'
+import * as React from "react";
+import { Container, Grid } from "@mui/material";
 
 const ServiceList = () => {
+  const [services, setServices] = React.useState([]);
+  console.log(services);
+
+  React.useEffect(() => {
+    fetch(`http://localhost:5000/service`)
+      .then((res) => res.json())
+      .then((data) => {
+        setServices(data);
+      });
+  }, []);
+
   return (
     <Container>
-      <h2>Service</h2>
-      <Box sx={{ flexGrow: 1 }}>
-      <Grid style={{textAlign: 'left'}} container spacing={10}>
-        <Grid item xs={12} md={6}>
-          <img style={{width: "15%"}} src={service1} alt="" />
-          <h2>Web and mobile disign</h2>
-          <p>We Craft stunning and amazing web UI, using a well drafted ux to fit your product.</p>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <img style={{width: "15%"}} src={service2} alt="" />
-          <h2>Graphic Design</h2>
-          <p>Amazing flyers, social media post and brand representations that would make your brand stand out.</p>
-        </Grid>
+      <h2>Service {services.length}</h2>
+      <Grid container spacing={2}>
+        {services.map((service) => (
+          <Grid key={service._id} item xs={12} sm={6} md={4}>
+            <img
+              style={{ width: "100%", height: "70%" }}
+              src={`data:image/png;base64,${service.image}`}
+              alt="Doctor img"
+            />
+            <h2>{service.name}</h2>
+            <h3>{service.description}</h3>
+          </Grid>
+        ))}
       </Grid>
-    </Box>
     </Container>
   );
-}
+};
 
 export default ServiceList;

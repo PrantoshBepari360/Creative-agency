@@ -1,4 +1,4 @@
-import { Alert, Container, TextField } from "@mui/material";
+import { Alert, Button, Container, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const style = {
@@ -9,19 +9,26 @@ const style = {
 };
 
 const AddService = () => {
-  const [serviceInfo, setServiceInfo] = useState({});
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [serviceSuccess, setServiceSuccess] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleServiceSubmit = (e) => {
     e.preventDefault();
+    if (!image) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("image", image);
 
     // send to the sarver
     fetch("http://localhost:5000/service", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(serviceInfo),
+      body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
@@ -29,14 +36,6 @@ const AddService = () => {
           setServiceSuccess(true);
         }
       });
-  };
-
-  const handleOnBlur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newInfo = { ...serviceInfo };
-    newInfo[field] = value;
-    setServiceInfo(newInfo);
   };
 
   return (
@@ -47,18 +46,16 @@ const AddService = () => {
           style={style}
           id="outlined-basic"
           name="titel"
-          onBlur={handleOnBlur}
+          onChange={(e) => setTitle(e.target.value)}
           variant="outlined"
           placeholder="Enter titel"
         />
         <br />
         <TextField
           style={style}
-          id="outlined-basic"
-          name="file"
-          onBlur={handleOnBlur}
-          variant="outlined"
-          placeholder="Update image"
+          accept="image/*"
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
         />
         <br />
         <TextField
@@ -67,12 +64,14 @@ const AddService = () => {
           multiline
           rows={4}
           name="description"
-          onBlur={handleOnBlur}
+          onChange={(e) => setDescription(e.target.value)}
           variant="outlined"
           placeholder="Enter Description"
         />
         <br />
-        <TextField style={style} id="outlined-basic" type="submit" />
+        <Button variant="outlined" type="submit">
+          Add Service
+        </Button>
       </form>
       <br />
       {serviceSuccess && (
