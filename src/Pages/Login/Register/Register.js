@@ -45,7 +45,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  name="Your Name"
+                  label="Your Name"
                   name="name"
                   type="text"
                   onBlur={handleOnBlur}
@@ -55,7 +55,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  name="Your Email"
+                  label="Your Email"
                   name="email"
                   type="email"
                   onBlur={handleOnBlur}
@@ -65,7 +65,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  name="Your Password"
+                  label="Your Password"
                   name="password"
                   type="password"
                   onBlur={handleOnBlur}
@@ -75,7 +75,7 @@ const Register = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  name="Retype Your Password"
+                  label="Retype Your Password"
                   name="Repassword"
                   type="password"
                   onBlur={handleOnBlur}

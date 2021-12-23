@@ -16,7 +16,7 @@ const Review = () => {
     e.preventDefault();
 
     // send to the sarver
-    fetch("http://localhost:5000/review", {
+    fetch("https://quiet-hollows-53334.herokuapp.com/review", {
       method: "POST",
       headers: {
         "content-type": "application/json",

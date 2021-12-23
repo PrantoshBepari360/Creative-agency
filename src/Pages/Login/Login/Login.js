@@ -47,7 +47,7 @@ const Login = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  name="Your Email"
+                  label="Your Email"
                   name="email"
                   type="email"
                   onBlur={handleOnBlur}
@@ -57,7 +57,7 @@ const Login = () => {
                 <TextField
                   sx={{ width: "75%", m: 1 }}
                   id="outlined-basic"
-                  name="Your Password"
+                  label="Your Password"
                   name="password"
                   type="password"
                   onBlur={handleOnBlur}

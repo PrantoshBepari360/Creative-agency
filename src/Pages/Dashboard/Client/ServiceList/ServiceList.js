@@ -6,7 +6,7 @@ const ServiceList = () => {
   console.log(services);
 
   React.useEffect(() => {
-    fetch(`http://localhost:5000/service`)
+    fetch(`https://quiet-hollows-53334.herokuapp.com/service`)
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
@@ -15,12 +15,12 @@ const ServiceList = () => {
 
   return (
     <Container>
-      <h2>Service {services.length}</h2>
-      <Grid container spacing={2}>
+      <h2 style={{padding: '3% 0%'}}>Service {services.length}</h2>
+      <Grid container spacing={1}>
         {services.map((service) => (
-          <Grid key={service._id} item xs={12} sm={6} md={4}>
+          <Grid style={{padding: '0% 3%'}}key={service._id} item xs={12} md={6}>
             <img
-              style={{ width: "100%", height: "70%" }}
+            style={{width: "50%"}}
               src={`data:image/png;base64,${service.image}`}
               alt="Doctor img"
             />

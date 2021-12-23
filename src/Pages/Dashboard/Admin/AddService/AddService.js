@@ -26,7 +26,7 @@ const AddService = () => {
     formData.append("image", image);
 
     // send to the sarver
-    fetch("http://localhost:5000/service", {
+    fetch("https://quiet-hollows-53334.herokuapp.com/service", {
       method: "POST",
       body: formData,
     })

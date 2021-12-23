@@ -5,6 +5,7 @@ import portfolio from "../../images/portfolio/3d.png";
 import portfolio2 from "../../images/portfolio/3d2.png";
 import portfolio3 from "../../images/portfolio/3d3.png";
 import portfolio4 from "../../images/portfolio/3d4.png";
+import Review from './Review';
 
 const image = {
   width: "80%",
@@ -43,6 +44,7 @@ const OurPortfolio = () => {
         </Grid>
       </Grid>
     </Box>
+    <Review></Review>
     </Container>
   );
 };

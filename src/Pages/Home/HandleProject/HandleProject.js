@@ -42,7 +42,6 @@ const HandleProject = () => {
                 <TextField
                   style={style}
                   id="outlined-basic"
-                  // label="Outlined"
                   variant="outlined"
                   placeholder="Your email address"
                 />
@@ -50,7 +49,6 @@ const HandleProject = () => {
                 <TextField
                   style={style}
                   id="outlined-basic"
-                  // label="Outlined"
                   variant="outlined"
                   placeholder="Your name / Company's name"
                 />
@@ -58,7 +56,6 @@ const HandleProject = () => {
                 <TextField
                   style={style}
                   id="outlined-basic"
-                  // label="Outlined"
                   multiline
                   rows={4}
                   variant="outlined"
@@ -77,7 +74,7 @@ const HandleProject = () => {
           </Box>
         </Box>
         <p style={{ marginBottom: "0px", padding: "3% 0%" }}>
-          copyright Orange labs 2021
+        &copy; copyright Prantosh Bepari 2021.
         </p>
       </Container>
     </Box>
